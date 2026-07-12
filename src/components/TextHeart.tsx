@@ -22,7 +22,7 @@ export default function TextHeart() {
     let animationFrameId: number;
     let points: Point[] = [];
     const text = "i love you";
-    const fontSize = 12;
+    const fontSize = 16;
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -39,11 +39,11 @@ export default function TextHeart() {
       // Heart equation: 
       // x = 16 sin^3(t)
       // y = -(13 cos(t) - 5 cos(2t) - 2 cos(3t) - cos(4t))
-
-      for (let t = 0; t < Math.PI * 2; t += 0.09) {
+      
+      for (let t = 0; t < Math.PI * 2; t += 0.05) {
         const x = 16 * Math.pow(Math.sin(t), 3);
-        const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
-
+        const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+        
         points.push({
           x: centerX + x * scale,
           y: centerY + y * scale,
@@ -57,20 +57,20 @@ export default function TextHeart() {
 
       // Add inner layers
       for (let s = 0.2; s < 1; s += 0.2) {
-        for (let t = 0; t < Math.PI * 2; t += 0.18) {
-          const x = 16 * Math.pow(Math.sin(t), 3);
-          const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
-
-          points.push({
-            x: centerX + x * scale * s,
-            y: centerY + y * scale * s,
-            alpha: 0,
-            targetAlpha: 0.4 + Math.random() * 0.4,
-            delay: Math.random() * 9000,
-            phase: Math.random() * Math.PI * 2,
-            amplitude: 2 + Math.random() * 4,
-          });
-        }
+          for (let t = 0; t < Math.PI * 2; t += 0.1) {
+            const x = 16 * Math.pow(Math.sin(t), 3);
+            const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+            
+            points.push({
+              x: centerX + x * scale * s,
+              y: centerY + y * scale * s,
+              alpha: 0,
+              targetAlpha: 0.4 + Math.random() * 0.4,
+              delay: Math.random() * 9000,
+              phase: Math.random() * Math.PI * 2,
+              amplitude: 2 + Math.random() * 4,
+            });
+          }
       }
     };
 
@@ -86,10 +86,10 @@ export default function TextHeart() {
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.font = `${fontSize}px "Fira Code", monospace`;
-
+      
       points.forEach((p) => {
         if (elapsed > p.delay) {
-          p.alpha += (p.targetAlpha - p.alpha) * 0.02;
+          p.alpha += (p.targetAlpha - p.alpha) * 0.008;
         }
 
         const dx = p.x - canvas.width / 2;
@@ -104,7 +104,8 @@ export default function TextHeart() {
         const floatY =
           Math.cos(elapsed * 0.0013 + p.phase) * p.amplitude * 0.7;
 
-        const rotation = 0; 
+        const rotation =
+          Math.sin(elapsed * 0.0015 + p.phase) * 0.08;
 
         ctx.save();
 
@@ -136,9 +137,9 @@ export default function TextHeart() {
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none"
+    <canvas 
+      ref={canvasRef} 
+      className="fixed inset-0 w-full h-full pointer-events-none"
     />
   );
 }

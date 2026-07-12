@@ -108,24 +108,29 @@ export default function App() {
             animate={{ opacity: 1 }}
             className="relative min-h-screen w-full flex items-center justify-center overflow-hidden px-4"
           >
-            <div className="relative z-20 flex items-center justify-center">
-              <TextHeart />
+            <TextHeart />
 
-              <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 3, duration: 1 }}
-                className="absolute inset-0 flex items-center justify-center text-center"
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 3, duration: 1.5 }}
+              className="z-20 text-center"
+            >
+              <h1 className="glow-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-center px-4">
+                Dier
+              </h1>
+              <div className="w-12 h-px bg-pink-deep/30 mx-auto mb-8" />
+
+              <motion.button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setStage('console');
+                }}
+                className="text-white/20 hover:text-white/60 transition-colors uppercase text-[10px] tracking-widest font-mono"
               >
-                <div>
-                  <h1 className="glow-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif">
-                    Dier
-                  </h1>
-
-                  <div className="w-12 h-px bg-pink-deep/30 mx-auto mt-4" />
-                </div>
-              </motion.div>
-            </div>
+                
+              </motion.button>
+            </motion.div>
 
             {/* Subtle tech overlays */}
             <div
@@ -166,7 +171,7 @@ export default function App() {
             </div>
 
             <div
-              className="absolute
+            className="absolute
             bottom-3 right-3
             sm:bottom-8 sm:right-8
             text-[10px] sm:text-[11px] md:text-xs

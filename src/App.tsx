@@ -128,7 +128,7 @@ export default function App() {
                 }}
                 className="text-white/20 hover:text-white/60 transition-colors uppercase text-[10px] tracking-widest font-mono"
               >
-                Re-encrypt
+                
               </motion.button>
             </motion.div>
 
